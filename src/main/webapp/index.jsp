@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@
         }).done(function (data) {
             let items = ""
             for (let i = 0; i < data.length; i++) {
-                items += "<tr>" + "<th>" + data[i]["id"] + "</th>"
+                items += "<tr>" + "<td>" + data[i]["id"] + "</td>"
                 items += "<td>" + data[i]["description"] + "</td>"
                 items += "<td>" + data[i]["created"] + "</td>"
                 if (data[i]["done"] === false) {
@@ -64,37 +65,40 @@
 
 <body>
 
-<button onclick="filter();">Filter open tasks only</button>
-<br>
-<br>
-
-<form action="/findAll" method="post">
+<form action="<%=request.getContextPath()%>/findAll" method="post">
     <div>
         <h1>Task planner</h1>
         <h3>Manage your tasks within few clicks</h3>
-        <h5>Fill in task description</h5>
         <br>
         <br>
+        <h5>Fill in new task description</h5>
         <br>
         <label>
-            <textarea rows="5" cols="50" name="description"></textarea>
+            <textarea rows="6" cols="50" name="description" required></textarea>
         </label>
-        <input type="submit" value="Save new task" required>
+        <br>
+        <button type="submit" class="btn btn-primary">Save new task</button>
     </div>
 </form>
 <br>
 <br>
 
-<form action="/close" method="post">
+<form action="<%=request.getContextPath()%>/close" method="post">
     <div>
         <h5>Type in the ID of a task to close (one shot -> one task)</h5>
         <br>
         <label>
             <input type="number" name="closedTask">
         </label>
-        <input type="submit" value="Close the task" required>
+        <button type="submit" class="btn btn-primary">Close the task</button>
     </div>
 </form>
+<br>
+<br>
+
+<button onclick="filter();">Filter open tasks only</button>
+<br>
+<br>
 
 <div class="container">
     <div class="row pt-3">
@@ -104,7 +108,6 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th style="width: 120px;"></th>
                 <th>ID</th>
                 <th>Description</th>
                 <th>Created</th>
