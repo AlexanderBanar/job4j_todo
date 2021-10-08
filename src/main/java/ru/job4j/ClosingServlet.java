@@ -15,6 +15,6 @@ public class ClosingServlet extends HttpServlet {
             itemToClose.setDone(true);
             PsqlTracker.instOf().closeTask(itemToClose);
         }
-        req.getRequestDispatcher("/index.html").forward(req, resp);
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

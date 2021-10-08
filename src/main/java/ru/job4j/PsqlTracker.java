@@ -35,7 +35,7 @@ public class PsqlTracker implements AutoCloseable {
     public List<Item> findAll() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List result = session.createQuery("from ru.job4j.Item").list();
+        List<Item> result = session.createQuery("from ru.job4j.Item").list();
         session.getTransaction().commit();
         session.close();
         return result;

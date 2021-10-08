@@ -25,6 +25,6 @@ public class TodoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String description = req.getParameter("description");
         PsqlTracker.instOf().save(description);
-        req.getRequestDispatcher("/index.html").forward(req, resp);
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
