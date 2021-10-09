@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.store;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,11 +6,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import ru.job4j.models.Item;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.List;
 
 public class PsqlTracker implements AutoCloseable {
@@ -35,7 +34,7 @@ public class PsqlTracker implements AutoCloseable {
     public List<Item> findAll() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List<Item> result = session.createQuery("from ru.job4j.Item").list();
+        List<Item> result = session.createQuery("from ru.job4j.models.Item").list();
         session.getTransaction().commit();
         session.close();
         return result;
@@ -45,7 +44,7 @@ public class PsqlTracker implements AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
         Query<Item> query = session.createQuery(
-                "from ru.job4j.Item where done = :parameter");
+                "from ru.job4j.models.Item where done = :parameter");
         query.setParameter("parameter", false);
         List<Item> result = query.list();
         session.getTransaction().commit();
@@ -57,7 +56,7 @@ public class PsqlTracker implements AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
         Query<Item> query = session.createQuery(
-                "from ru.job4j.Item where id = :parameter");
+                "from ru.job4j.models.Item where id = :parameter");
         query.setParameter("parameter", id);
         List<Item> result = query.list();
         session.getTransaction().commit();

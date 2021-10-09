@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +9,8 @@ import java.util.Collection;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.job4j.models.Item;
+import ru.job4j.store.PsqlTracker;
 
 public class TodoServlet extends HttpServlet {
     @Override
