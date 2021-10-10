@@ -52,22 +52,13 @@ public class PsqlTracker implements AutoCloseable {
         return result;
     }
 
-    public Item findById(int id) {
+    public void closeTask(int id) {
         Session session = sf.openSession();
         session.beginTransaction();
-        Query<Item> query = session.createQuery(
-                "from ru.job4j.models.Item where id = :parameter");
-        query.setParameter("parameter", id);
-        List<Item> result = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return (result.size() != 0) ? result.get(0) : null;
-    }
-
-    public void closeTask(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
+        Query query = session.createQuery(
+                "update ru.job4j.models.Item set done = true where id = :parameterId");
+        query.setParameter("parameterId", id);
+        query.executeUpdate();
         session.getTransaction().commit();
         session.close();
     }

@@ -1,6 +1,5 @@
 package ru.job4j.servlets;
 
-import ru.job4j.models.Item;
 import ru.job4j.store.PsqlTracker;
 
 import javax.servlet.ServletException;
@@ -13,11 +12,7 @@ public class ClosingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int idToClose = Integer.parseInt(req.getParameter("closedTask"));
-        Item itemToClose = PsqlTracker.instOf().findById(idToClose);
-        if (itemToClose != null) {
-            itemToClose.setDone(true);
-            PsqlTracker.instOf().closeTask(itemToClose);
-        }
+        PsqlTracker.instOf().closeTask(idToClose);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
