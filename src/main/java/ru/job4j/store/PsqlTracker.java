@@ -64,23 +64,24 @@ public class PsqlTracker implements AutoCloseable {
         );
     }
 
-    public List<Item> closeTask(int id) {
-        return this.tx(
+    public void closeTask(int id) {
+        this.tx(
                 session -> {
                     Query<Item> query = session.createQuery(
                             "update ru.job4j.models.Item set done = true where id = :parameterId");
                     query.setParameter("parameterId", id);
-                    return query.list();
+                    query.executeUpdate();
+                    return id;
                 }
         );
     }
 
-    public List<Item> save(String description) {
-        return this.tx(
+    public void save(String description) {
+         this.tx(
                 session -> {
                     Item item = new Item(description, new Timestamp(System.currentTimeMillis()), false);
                     session.save(item);
-                    return List.of(item);
+                    return description;
                 }
         );
     }
