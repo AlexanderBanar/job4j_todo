@@ -13,23 +13,52 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>TodoServlet</servlet-name>
-        <url-pattern>/findAll</url-pattern>
+        <url-pattern>/findAll.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>ClosingServlet</servlet-name>
         <servlet-class>ru.job4j.servlets.ClosingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ClosingServlet</servlet-name>
-        <url-pattern>/close</url-pattern>
+        <url-pattern>/close.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>FilterServlet</servlet-name>
         <servlet-class>ru.job4j.servlets.FilterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
-        <url-pattern>/filtered</url-pattern>
+        <url-pattern>/filter.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.RegServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegServlet</servlet-name>
+        <url-pattern>/reg.do</url-pattern>
     </servlet-mapping>
 
 </web-app>

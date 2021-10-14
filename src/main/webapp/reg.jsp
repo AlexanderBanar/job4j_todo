@@ -1,9 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -16,21 +14,19 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-    <title>Todo login</title>
+    <title>Todo reg</title>
 
 </head>
 <body>
-
 <div class="container pt-3">
 
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Authorization
+                Registration
             </div>
             <div class="card-body">
-                <form id="currentForm" action="<%=request.getContextPath()%>/auth.do" method="post">
+                <form id="currentForm" action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" name="name" required>
@@ -41,21 +37,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/reg.jsp">Registration</a>
-                </li>
-
-                <% if (request.getAttribute("registration") != null) { %>
-                Your registration failed. User with this name is already registered.
-                <% } %>
-
-                <% if (request.getAttribute("error") != null) { %>
-                Your authorization failed. Wrong name or password.
-                <% } %>
-
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
