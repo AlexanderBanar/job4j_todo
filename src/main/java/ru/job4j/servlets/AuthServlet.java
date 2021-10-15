@@ -19,10 +19,7 @@ public class AuthServlet extends HttpServlet {
         if (userToSearchByName != null) {
             if (userToSearchByName.getPassword().equals(password)) {
                 HttpSession sc = req.getSession();
-                User user = new User();
-                user.setName(name);
-                user.setPassword(password);
-                sc.setAttribute("user", user);
+                sc.setAttribute("user", userToSearchByName);
                 resp.sendRedirect(req.getContextPath() + "/tasks.jsp");
             } else {
                 req.setAttribute("error", "wrong name or password");

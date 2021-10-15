@@ -49,15 +49,14 @@ public class PsqlTracker implements AutoCloseable {
     }
 
     public User getUser(String name) {
-        List<User> list = this.tx(
+        return this.tx(
                 session -> {
                     Query<User> query = session.createQuery(
                             "from ru.job4j.models.User where name = :parameter");
                     query.setParameter("parameter", name);
-                    return query.list();
+                    return query.uniqueResult();
                 }
         );
-        return (list.size() == 0) ? null : list.get(0);
     }
 
     public void saveUser(User user) {
