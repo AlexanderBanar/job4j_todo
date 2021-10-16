@@ -22,3 +22,15 @@ insert into item(description, created, done, user_id) VALUES ('to fix the bug on
 insert into item(description, created, done, user_id) VALUES ('to fix bug on back-end', '2021-10-03 21:07:15', true, 1);
 
 insert into users(name, password) values ('AlexBanar', 'password');
+
+create database cars;
+
+create table models (
+                        id serial primary key,
+                        name varchar
+);
+
+create table brands (
+                        id serial primary key,
+                        name varchar
+);
