@@ -34,3 +34,15 @@ create table brands (
                         id serial primary key,
                         name varchar
 );
+
+create database reading;
+
+create table authors (
+                         id serial primary key,
+                         name varchar
+);
+
+create table books (
+                       id serial primary key,
+                       name varchar
+);
