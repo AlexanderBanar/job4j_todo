@@ -5,16 +5,15 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/reading</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/lazy</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
-        <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="ru.job4j.reading.Author" />
-        <mapping class="ru.job4j.reading.Book" />
+        <mapping class="ru.job4j.lazy.Brand" />
+        <mapping class="ru.job4j.lazy.Model" />
     </session-factory>
 </hibernate-configuration>
