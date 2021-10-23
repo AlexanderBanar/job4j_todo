@@ -30,9 +30,10 @@ public class TodoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String description = req.getParameter("description");
+        String[] cIds = req.getParameterValues("cIds");
         HttpSession sc = req.getSession();
         User user = (User) sc.getAttribute("user");
-        PsqlTracker.instOf().save(user, description);
+        PsqlTracker.instOf().save(user, description, cIds);
         req.getRequestDispatcher("/tasks.jsp").forward(req, resp);
     }
 }

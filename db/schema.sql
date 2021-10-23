@@ -46,3 +46,14 @@ create table books (
                        id serial primary key,
                        name varchar
 );
+
+create table categories (
+                            id serial primary key,
+                            name varchar
+);
+
+insert into categories(name) values ('customer');
+insert into categories(name) values ('continuous improvement');
+insert into categories(name) values ('result checking');
+insert into categories(name) values ('planning');
+insert into categories(name) values ('implementation');

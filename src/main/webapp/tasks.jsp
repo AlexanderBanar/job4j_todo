@@ -55,13 +55,19 @@
                 } else {
                     items += "<td>" + "closed" + "</td>"
                 }
-                items += "</tr>"
+                items += "<td>"
+                    for (let j = 0; j < data[i]["categories"].length; j++) {
+                        items += data[i]["categories"][j]
+                        items += "; "
+                    }
+                items += "</td>" + "</tr>"
             }
             $('#table').html(items);
         }).fail(function (err) {
             console.log(err);
         });
     }
+
 </script>
 
 <body>
@@ -84,6 +90,15 @@
         <label>
             <textarea rows="6" cols="50" name="description" required></textarea>
         </label>
+        <br>
+        <label class="col-form-label col-sm-3" for="cIds" style="font-weight: 900">Choose category(-ies)</label>
+        <div class="col-sm-5" href="<%=request.getContextPath()%>/category.do">
+            <select class="form-control" name="cIds" id="cIds" multiple>
+                <c:forEach items="${allCategories}" var="category">
+                    <option value="${category.id}">${category.name}</option>
+                </c:forEach>
+            </select>
+        </div>
         <br>
         <button type="submit" class="btn btn-primary">Save new task</button>
     </div>
@@ -120,6 +135,7 @@
                 <th>Description</th>
                 <th>Created</th>
                 <th>Done?</th>
+                <th>Categories</th>
             </tr>
             </thead>
             <tbody id="table">
