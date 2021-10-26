@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ru.job4j.models.Category;
 import ru.job4j.store.PsqlTracker;
 
@@ -15,6 +17,10 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categories = PsqlTracker.instOf().getAllCategories();
-        req.setAttribute("allCategories", categories);
+        final Gson gson = new GsonBuilder().create();
+        String categoriesToGson = gson.toJson(categories);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("json");
+        resp.getWriter().write(categoriesToGson);
     }
 }

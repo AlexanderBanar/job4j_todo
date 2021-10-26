@@ -1,3 +1,4 @@
+<%@ page import="ru.job4j.models.Category" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -16,6 +17,10 @@
 
 <script>
     $(document).ready(function () {
+        loadCategories()
+    })
+
+    function loadAllTasks() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/todo/findAll.do',
@@ -23,7 +28,7 @@
         }).done(function (data) {
             let items = ""
             for (let i = 0; i < data.length; i++) {
-                items += "<tr>" + "<th>" + data[i]["id"] + "</th>"
+                items += "<tr>" + "<td>" + data[i]["id"] + "</td>"
                 items += "<td>" + data[i]["description"] + "</td>"
                 items += "<td>" + data[i]["created"] + "</td>"
                 if (data[i]["done"] === false) {
@@ -31,13 +36,35 @@
                 } else {
                     items += "<td>" + "closed" + "</td>"
                 }
-                items += "</tr>"
+                items += "<td>"
+                for (let j = 0; j < data[i]["categories"].length; j++) {
+                    items += data[i]["categories"][j]["id"]
+                    items += "; "
+                }
+                items += "</td>" + "</tr>"
             }
             $('#table').html(items);
         }).fail(function (err) {
             console.log(err);
         });
-    })
+    }
+
+    function loadCategories() {
+        const req = $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/todo/category.do",
+            dataType: 'json'
+        })
+        req.done(function (data) {
+            let categories = ""
+            for (let i = 0; i < data.length; i++) {
+                categories += "<option value=" + data[i]["id"] + ">"
+                    + data[i]["name"]
+                    + "</option>>"
+            }
+            $('#ctIds').html(categories)
+        })
+    }
 
     function filter() {
         $.ajax({
@@ -57,7 +84,7 @@
                 }
                 items += "<td>"
                     for (let j = 0; j < data[i]["categories"].length; j++) {
-                        items += data[i]["categories"][j]
+                        items += data[i]["categories"][j]["id"]
                         items += "; "
                     }
                 items += "</td>" + "</tr>"
@@ -86,18 +113,18 @@
         <br>
         <br>
         <h5>Fill in new task description</h5>
-        <br>
         <label>
             <textarea rows="6" cols="50" name="description" required></textarea>
         </label>
         <br>
-        <label class="col-form-label col-sm-3" for="cIds" style="font-weight: 900">Choose category(-ies)</label>
-        <div class="col-sm-5" href="<%=request.getContextPath()%>/category.do">
-            <select class="form-control" name="cIds" id="cIds" multiple>
-                <c:forEach items="${allCategories}" var="category">
-                    <option value="${category.id}">${category.name}</option>
-                </c:forEach>
-            </select>
+        <div class="form-group row" >
+            <label class="col-form-label col-sm-3">Choose category (you may select multiple):</label>
+            <br>
+            <div class="col-sm-5">
+                <select class="form-control" id="ctIds" name="ctIds" multiple="multiple" required>
+
+                </select>
+            </div>
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Save new task</button>
@@ -116,6 +143,10 @@
         <button type="submit" class="btn btn-primary">Close the task</button>
     </div>
 </form>
+<br>
+<br>
+
+<button onclick="loadAllTasks();">Show all tasks</button>
 <br>
 <br>
 

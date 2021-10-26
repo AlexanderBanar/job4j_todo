@@ -75,7 +75,7 @@ public class PsqlTracker implements AutoCloseable {
         return this.tx(
                 session -> {
                     Query<Item> query = session.createQuery(
-                            "from ru.job4j.models.Item where user = :parameter");
+                            "select distinct t from ru.job4j.models.Item t join fetch t.categories where t.user = :parameter");
                     query.setParameter("parameter", user);
                     return query.list();
                 }
@@ -86,7 +86,7 @@ public class PsqlTracker implements AutoCloseable {
         return this.tx(
                 session -> {
                     Query<Item> query = session.createQuery(
-                            "from ru.job4j.models.Item where done = false and user = :parameter");
+                            "select distinct t from ru.job4j.models.Item t join fetch t.categories where t.done = false and t.user = :parameter");
                     query.setParameter("parameter", user);
                     return query.list();
                 }
@@ -119,11 +119,11 @@ public class PsqlTracker implements AutoCloseable {
         return user.equals(userOfId);
     }
 
-    public void save(User user, String description, String[] cIds) {
+    public void save(User user, String description, String[] ctIds) {
          this.tx(
                 session -> {
                     Item item = new Item(description, new Timestamp(System.currentTimeMillis()), false, user);
-                    for (String id : cIds) {
+                    for (String id : ctIds) {
                         Category category = session.find(Category.class, Integer.parseInt(id));
                         item.getCategories().add(category);
                     }
@@ -142,36 +142,5 @@ public class PsqlTracker implements AutoCloseable {
     @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
-    }
-
-    public static void main(String[] args) {
-        User alexUser = User.of("AlexBanar", "password");
-        PsqlTracker.instOf().saveUser(alexUser);
-        User savedUser = PsqlTracker.instOf().getUser("AlexBanar");
-
-        String[] forOne = {"1", "3"};
-        String[] forTwo = {"4"};
-        String[] forThree = {"2", "5"};
-        String[] forFour = {"3"};
-        String[] forFive = {"4"};
-        String[] forSix = {"5"};
-
-        PsqlTracker.instOf().save(savedUser, "to track all new activities", forOne);
-        PsqlTracker.instOf().save(savedUser, "to find all Hibernate courses", forTwo);
-        PsqlTracker.instOf().save(savedUser, "to find all Hibernate books", forThree);
-        PsqlTracker.instOf().save(savedUser, "to fix bug on back-end", forFour);
-        PsqlTracker.instOf().save(savedUser, "to develop learning plan", forFive);
-        PsqlTracker.instOf().save(savedUser, "to fix the bug on front-side", forSix);
-
-        List<Item> itemList = PsqlTracker.instOf().findAll(savedUser);
-
-        for (Item m : itemList) {
-            List<Category> categories = m.getCategories();
-            for (Category category : categories) {
-                System.out.println(m.getDescription() + ": " + category.getId());
-            }
-        }
-
-
     }
 }
