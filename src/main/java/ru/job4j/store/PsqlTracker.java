@@ -122,7 +122,7 @@ public class PsqlTracker implements AutoCloseable {
     public void save(User user, String description, String[] ctIds) {
          this.tx(
                 session -> {
-                    Item item = new Item(description, new Timestamp(System.currentTimeMillis()), false, user);
+                    Item item = new Item(description, user);
                     for (String id : ctIds) {
                         Category category = session.find(Category.class, Integer.parseInt(id));
                         item.getCategories().add(category);
