@@ -57,3 +57,23 @@ insert into categories(name) values ('continuous improvement');
 insert into categories(name) values ('result checking');
 insert into categories(name) values ('planning');
 insert into categories(name) values ('implementation');
+
+create database auto;
+
+create table engines (
+                         id serial primary key,
+                         type varchar,
+                         name varchar
+);
+
+create table cars (
+                      id serial primary key,
+                      oem varchar,
+                      model varchar,
+                      engine_id int references engines(id)
+);
+
+create table drivers (
+                         id serial primary key,
+                         name varchar
+);
