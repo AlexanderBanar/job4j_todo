@@ -77,3 +77,16 @@ create table drivers (
                          id serial primary key,
                          name varchar
 );
+
+create database hql;
+
+create table candidate (
+                           id serial primary key,
+                           name varchar,
+                           experience int,
+                           salary int
+);
+
+insert into candidate(name, experience, salary) VALUES ('Ivan', 3, 3000);
+insert into candidate(name, experience, salary) VALUES ('Petr', 4, 4000);
+insert into candidate(name, experience, salary) VALUES ('Alex', 2, 2500);
