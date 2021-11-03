@@ -29,9 +29,12 @@ public class Main {
                     .setParameter("param", 2);
             System.out.println(query2.uniqueResult());
 
-            Query query3 = session.createQuery("from Candidate where name = :param")
-                    .setParameter("param", "Ivan");
-            System.out.println(query3.uniqueResult());
+            List<Candidate> searchForIvans = session.createQuery("from Candidate where name = :param")
+                    .setParameter("param", "Ivan")
+                    .list();
+            for (Candidate can : searchForIvans) {
+                System.out.println(can);
+            }
 
             session.createQuery("update Candidate c set c.name = :param1 where c.id = :param2")
                     .setParameter("param1", "Sergey")
