@@ -14,11 +14,15 @@ public class Candidate {
     private int experience;
     private int salary;
 
-    public static Candidate of(String name, int experience, int salary) {
+    @OneToOne(fetch = FetchType.LAZY)
+    private VacancyBase vacancyBase;
+
+    public static Candidate of(String name, int experience, int salary, VacancyBase vb) {
         Candidate candidate = new Candidate();
         candidate.name = name;
         candidate.experience = experience;
         candidate.salary = salary;
+        candidate.vacancyBase = vb;
         return candidate;
     }
 
@@ -54,6 +58,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public VacancyBase getVacancyBase() {
+        return vacancyBase;
+    }
+
+    public void setVacancyBase(VacancyBase vacancyBase) {
+        this.vacancyBase = vacancyBase;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -73,6 +85,7 @@ public class Candidate {
 
     @Override
     public String toString() {
-        return String.format("Candidate: id=%d, name=%s, experience=%d, salary=%d", id, name, experience, salary);
+        return String.format("Candidate: id=%d, name=%s, experience=%d, salary=%d, vacancyBase=%s",
+                id, name, experience, salary, vacancyBase);
     }
 }

@@ -90,3 +90,13 @@ create table candidate (
 insert into candidate(name, experience, salary) VALUES ('Ivan', 3, 3000);
 insert into candidate(name, experience, salary) VALUES ('Petr', 4, 4000);
 insert into candidate(name, experience, salary) VALUES ('Alex', 2, 2500);
+
+create table vacancy (
+                         id serial primary key,
+                         name varchar
+);
+
+create table vacancy_base (
+                              id serial primary key,
+                              name varchar
+);
